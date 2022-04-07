@@ -1,0 +1,24 @@
+{
+  "name": "it122",
+  "version": "1.0.0",
+  "description": "scc it122 project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brinkbrink/it122.git"
+  },
+  "keywords": [
+    "it122",
+    "scc",
+    "javascript"
+  ],
+  "author": "E. Brink",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brinkbrink/it122/issues"
+  },
+  "homepage": "https://github.com/brinkbrink/it122#readme"
+}
