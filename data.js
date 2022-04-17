@@ -54,8 +54,6 @@ export const getAll = () => {
     return tapes;
 }
 
-export const getItem = (val) => {
-    return tapes.find((item) => {
-        return item["artist"] == val;
-    })
-}
+// export const getItem = (val) => {
+//     return tapes.find(artist == )
+// }
