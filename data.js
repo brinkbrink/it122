@@ -1,6 +1,6 @@
 export const tapes = [
     {
-        artist: 'armand hammer',
+        artist: 'armandhammer',
         title: 'Shrines',
         year: 2020,
         genre: 'hip hop',
@@ -14,35 +14,37 @@ export const tapes = [
         price: 11.00
     },
     {
-        artist: 'Matt Sweeney & Bonnie \'Prince\' Billy',
+        // artist: 'matt sweeney & bonnie \'prince\' billy',
+        // will use decodeURIComponent or something similar in the future...but for now this works!
+        artist: 'sweeney',
         title: 'Superwolves',
         year: 2021,
         genre: 'folk rock',
         price: 19.95
     },
     {
-        artist: 'Pilgrim Screw',
+        artist: 'pilgrimscrew',
         title: 'Pilgrim Screw',
         year: 2021,
         genre: 'lo-fi synth-punk',
         price: 6.95
     },
     {
-        artist: 'Pink Siifu & Fly Anakin',
+        artist: 'pinksiifu',
         title: 'Fly Siifu',
         year: 2020,
         genre: 'hip hop',
         price: 11.99
     },
     {
-        artist: 'Spirito Di Lupo',
+        artist: 'spirito',
         title: '4 canzoni',
         year: 2021,
         genre: 'inner peace punk',
         price: 9.07
     },   
     {
-        artist: 'Todd Rundgren',
+        artist: 'rundgren',
         title: 'The Ever Popular Tortured Artist Effect',
         year: 1982,
         genre: 'pop rock',
@@ -54,9 +56,6 @@ export const getAll = () => {
     return tapes;
 }
 
-// const hasDeath = el => el.artist ==='Death';
-// const deathResult = tapes.find(hasDeath);
-// console.log(deathResult);
 export const getItem = (val) => {
 const findTape = (tape) => {
     return tape.artist === val;
@@ -64,18 +63,4 @@ const findTape = (tape) => {
 const result = tapes.find(findTape);
 return result;
 }
-// console.log(getItem('death'));
-
-
-// export const getItem = () => {
-// tapes.find( tape => tape.artist === 'death' );
-// }
-
-// export const getItem = () => {
-//     tapes.find((tape) => {
-//     console.log('death');
-//     let found = tape.artist
-//     return tape.artist === 'death';
-//     });
-// }
      
