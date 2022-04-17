@@ -3,12 +3,10 @@ import * as tape from './data.js';
 
 
 http.createServer((req, res) => {
-//   let url = req.url.split("?"); // separate route from query string
-//   let query = parse(url[1]); // convert query string to a JS object
-  const path = req.url.toLowerCase()
-  let detail = req.url.split("?");
-  let params = new URLSearchParams(detail[1]);
-  let artist = params.get('artist');
+  const path = req.url.toLowerCase();
+  let detail = req.url.split("?"); // split query string 
+  let params = new URLSearchParams(detail[1]); // used URLSearchParams as recommended, parse is deprecated as of 2019
+  let artist = params.get('artist'); // gets artist value from query
   switch(path) {
     case '/':
       res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -20,11 +18,11 @@ http.createServer((req, res) => {
       res.end('Learning more about me could lead to learning more about you. Or it could just be a complete waste of time.');
       break;
     case `/detail?artist=${artist}`:
-      let found = tape.getItem(`${artist}`);
-      res.writeHead(200, {'Content-Type': 'text/plain'});
-      let results = (found) ? JSON.stringify(found) : 'Nothing found';
+      let found = tape.getItem(`${artist}`); // getting object from array
+      res.writeHead(200, {'Content-Type': 'text/plain'}); 
+      let results = (found) ? JSON.stringify(found) : 'Nothing found'; // if results exist display them, otherwise use nothing found msg
       res.end(`Results for ${artist} 
-      ${results}`);
+      ${results}`); // results displayed
       break;
     default:
       res.writeHead(404, {'Content-Type': 'text/plain'});

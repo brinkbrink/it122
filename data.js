@@ -60,7 +60,7 @@ export const getItem = (val) => {
 const findTape = (tape) => {
     return tape.artist === val;
 }
-const result = tapes.find(findTape);
-return result;
+    const result = tapes.find(findTape);
+    return result;
 }
      
