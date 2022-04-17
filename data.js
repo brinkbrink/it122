@@ -1,13 +1,13 @@
-const tapes = [
+export const tapes = [
     {
-        artist: 'Armand Hammer',
+        artist: 'armand hammer',
         title: 'Shrines',
         year: 2020,
         genre: 'hip hop',
         price: 13.00
     },
     {
-        artist: 'Death',
+        artist: 'death',
         title: 'Leprosy',
         year: 1988,
         genre: 'death metal',
@@ -54,6 +54,28 @@ export const getAll = () => {
     return tapes;
 }
 
-// export const getItem = (val) => {
-//     return tapes.find(artist == )
+// const hasDeath = el => el.artist ==='Death';
+// const deathResult = tapes.find(hasDeath);
+// console.log(deathResult);
+export const getItem = (val) => {
+const findTape = (tape) => {
+    return tape.artist === val;
+}
+const result = tapes.find(findTape);
+return result;
+}
+// console.log(getItem('death'));
+
+
+// export const getItem = () => {
+// tapes.find( tape => tape.artist === 'death' );
 // }
+
+// export const getItem = () => {
+//     tapes.find((tape) => {
+//     console.log('death');
+//     let found = tape.artist
+//     return tape.artist === 'death';
+//     });
+// }
+     

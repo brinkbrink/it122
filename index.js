@@ -1,5 +1,5 @@
 import http from 'http';
-import { getAll } from './data.js';
+import * as tape from './data.js';
 
 
 http.createServer((req, res) => {
@@ -12,7 +12,7 @@ http.createServer((req, res) => {
   switch(path) {
     case '/':
       res.writeHead(200, {'Content-Type': 'text/plain'});
-      res.end(JSON.stringify(getAll()));
+      res.end(JSON.stringify(tape.getAll()));
       break;
     case '/about':
       res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -20,8 +20,13 @@ http.createServer((req, res) => {
       res.end('Learning more about me could lead to learning more about you. Or it could just be a complete waste of time.');
       break;
     case `/detail?artist=${artist}`:
+      let found = tape.getItem(`${artist}`);
+      // let found = tape.getItem(`${artist}`);
+      // let found = tape.tapes[1];
       res.writeHead(200, {'Content-Type': 'text/plain'});
-      res.end(artist);
+      let results = (found) ? JSON.stringify(found) : 'Nothing found';
+      res.end(`Results for ${artist} 
+      ${results}`);
       break;
     default:
       res.writeHead(404, {'Content-Type': 'text/plain'});
