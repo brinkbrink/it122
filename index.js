@@ -14,13 +14,15 @@ http.createServer((req, res) => {
       break;
     case '/about':
       res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.write(req.url);
       res.end('Learning more about me could lead to learning more about you. Or it could just be a complete waste of time.');
       break;
-    case '/detail':
-      let found = getItem(query.artist); 
+    case '/detail?artist=doodoo':
+      let detail = req.url.split("?");
+      let params = new URLSearchParams(detail[1]);
+      let artist = params.get('artist');
       res.writeHead(200, {'Content-Type': 'text/plain'});
-      let results = (found) ? JSON.stringify(found) : "Not found";
-      res.end(`Results for ${query.artist}: \n${results}`);
+      res.end(artist);
       break;
     default:
       res.writeHead(404, {'Content-Type': 'text/plain'});
