@@ -21,8 +21,6 @@ http.createServer((req, res) => {
       break;
     case `/detail?artist=${artist}`:
       let found = tape.getItem(`${artist}`);
-      // let found = tape.getItem(`${artist}`);
-      // let found = tape.tapes[1];
       res.writeHead(200, {'Content-Type': 'text/plain'});
       let results = (found) ? JSON.stringify(found) : 'Nothing found';
       res.end(`Results for ${artist} 
