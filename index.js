@@ -19,7 +19,7 @@ http.createServer((req, res) => {
       res.write(req.url);
       res.end('Learning more about me could lead to learning more about you. Or it could just be a complete waste of time.');
       break;
-    case '/detail?artist=death':
+    case `/detail?artist=${artist}`:
       res.writeHead(200, {'Content-Type': 'text/plain'});
       res.end(artist);
       break;
