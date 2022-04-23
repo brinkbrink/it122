@@ -24,6 +24,7 @@ app.get('/', (req,res) => {
   res.type('text/html');
   console.log(req.query);
   let result = tape.getItem(req.query.artist);
+  res.render("details", { artist: req.query.artist, result })
   // res.end("Detail for " + req.query.artist)
   // res.sendFile('./public/home.html');
  });
