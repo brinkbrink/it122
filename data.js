@@ -14,7 +14,7 @@ export const tapes = [
         price: 11.00
     },
     {
-        artist: 'Matt Sweeney & Bonnie \'Prince\' Billy',
+        artist: 'Matt Sweeney and Bonnie \'Prince\' Billy',
         title: 'Superwolves',
         year: 2021,
         genre: 'folk rock',
