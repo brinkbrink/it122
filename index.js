@@ -20,7 +20,6 @@ app.get('/', (req,res) => {
 
  app.get('/detail', (req,res) => {
   res.type('text/html');
-  console.log(req.query);
   let result = tape.getItem(req.query.artist);
   res.render("details", { artist: req.query.artist, result })
  });
