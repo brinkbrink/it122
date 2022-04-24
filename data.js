@@ -1,50 +1,48 @@
 export const tapes = [
     {
-        artist: 'armandhammer',
+        artist: 'Armand Hammer',
         title: 'Shrines',
         year: 2020,
         genre: 'hip hop',
         price: 13.00
     },
     {
-        artist: 'death',
+        artist: 'Death',
         title: 'Leprosy',
         year: 1988,
         genre: 'death metal',
         price: 11.00
     },
     {
-        // artist: 'matt sweeney & bonnie \'prince\' billy',
-        // will use decodeURIComponent or something similar in the future...but for now this works!
-        artist: 'sweeney',
+        artist: 'Matt Sweeney & Bonnie \'Prince\' Billy',
         title: 'Superwolves',
         year: 2021,
         genre: 'folk rock',
         price: 19.95
     },
     {
-        artist: 'pilgrimscrew',
+        artist: 'Pilgrim Screw',
         title: 'Pilgrim Screw',
         year: 2021,
         genre: 'lo-fi synth-punk',
         price: 6.95
     },
     {
-        artist: 'pinksiifu',
+        artist: 'Fly Anakin and Pink Siifu',
         title: 'Fly Siifu',
         year: 2020,
         genre: 'hip hop',
         price: 11.99
     },
     {
-        artist: 'spirito',
-        title: '4 canzoni',
+        artist: 'Spirito Di Lupo',
+        title: '4 Canzoni',
         year: 2021,
         genre: 'inner peace punk',
         price: 9.07
     },   
     {
-        artist: 'rundgren',
+        artist: 'Todd Rundgren',
         title: 'The Ever Popular Tortured Artist Effect',
         year: 1982,
         genre: 'pop rock',
