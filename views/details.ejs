@@ -1,12 +1,15 @@
 <link rel="stylesheet" href="/css/styles.css">
-
+<body>
+<main>
 <h2>Detail</h2>
 <hr>
-<h3>Tapes</h3>
+<h4><a href="/">Back to tapes</a></h4>
 
 <h3>Artist: <%= artist %></h3>
 
-<%= result.title %>
-<%= result.year %>
-<%= result.genre %>
-<%= result.price %>
+<p><%= result.title %></p>
+<p><%= result.genre %></p>
+<p><%= result.year %></p>
+<p>$<%= result.price %></p>
+</main>
+</body>
