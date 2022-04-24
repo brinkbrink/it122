@@ -1,21 +1,34 @@
 html {
-    color: #3C3C3C;
-    background-color: #A2D3C2;
+    color: #333745;
+    background-color: #7CA5B8;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
 main {
-    background-color: #D6F49D;
+    background-color: #FFEEDB;
     width: 90%;
     margin: auto;
     padding: .5em 2em 2em 2em;
+    border-radius: 15px;
 }
 
-h2, h3 {
+h2, h3, h4 {
     font-family: Georgia, serif;
     font-size: 2em;
 }
 
 h3 {
     font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1em;
+}
+
+a {
+    color: #FE5F55;
+}
+
+a:hover {
+    color: #7F96FF;
 }
