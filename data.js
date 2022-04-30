@@ -79,7 +79,7 @@ export const deleteItem = (artist, title, year, genre, price) => {
     if(index === -1){
         return false;
     } else {
-        tapes = tapes.filter(tape => tape.artist !== artist)
+        tapes = tapes.filter(tape => tape.title !== title)
         return true;
     }
 }
