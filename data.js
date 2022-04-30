@@ -67,9 +67,6 @@ export const addItem = (artist, title, year, genre, price) => {
     let index = tapes.findIndex(tape => tape.title === newTape.title);
     if(index === -1){
         tapes.push(newTape);
-        console.log(index);
-        console.log(newTape);
-        console.log(tapes);
         return true;
     }else{
         return false;
