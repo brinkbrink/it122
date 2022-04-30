@@ -22,12 +22,12 @@ describe("tapes data module", () => {
     expect(result).to.be.false;
   });
 
-  it("deletes an existing book", function() {
+  it("deletes tape if found in array", function() {
     let result = tape.deleteItem("Death", "Leprosy", 1988, "death metal", 11.00);
     expect(result).to.be.true;
   });
 
-it("fails to delete an invalid book", function() {
+it("will not delete if tape not found", function() {
     let result = tape.deleteItem("asdfsd");
     expect(result).to.be.false;
   });
