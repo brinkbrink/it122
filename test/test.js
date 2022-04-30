@@ -11,4 +11,14 @@ describe("tapes data module", () => {
    let result = tape.getItem("fake");
    expect(result).to.be.undefined;
  });
+
+ it("adds requested tape", function() {
+    let result = tape.addItem("Primitive Man", "Caustic", 2017, "metal", 10.98);
+    expect(result.added).to.be.true;
+  });
+ 
+  it("fails with duplicate tape", () => {
+    let result = tape.addItem("Death", "Leprosy", 1988, "death metal", 11.00);
+    expect(result.added).to.be.false;
+  });
 });

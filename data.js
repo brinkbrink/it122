@@ -62,12 +62,24 @@ const findTape = (tape) => {
     return result;
 }
 
-export const addItem = (artist, title, year, genre, price) => {
-    let item = {artist: artist, title: title, year: year, genre: genre, price: price}
+export const addItem = (band, tit, yr, genre, price) => {
+    // let item = {artist: band, title: tit, year: yr, genre: genre, price: price}
+    
     if(tapes.includes(item)===false){
         tapes.push(item);
-        return "Successfully added " + item + tapes;
+        console.log(item);
+        console.log(tapes);
+        return true;
     }else{
-        return "This item already exists. Failed to add.";
+        return false;
+    }
+}
+
+export const deleteItem = (artist) => {
+    if(tapes.includes(artist)===true){
+    tapes = tapes.filter(tape => tape.artist !== artist)
+    return true;
+    } else {
+        return false;
     }
 }
