@@ -61,4 +61,13 @@ const findTape = (tape) => {
     const result = tapes.find(findTape);
     return result;
 }
-     
+
+export const addItem = (artist, title, year, genre, price) => {
+    let item = {artist: artist, title: title, year: year, genre: genre, price: price}
+    if(tapes.includes(item)===false){
+        tapes.push(item);
+        return "Successfully added " + item + tapes;
+    }else{
+        return "This item already exists. Failed to add.";
+    }
+}
