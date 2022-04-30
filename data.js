@@ -1,4 +1,4 @@
-export const tapes = [
+export let tapes = [
     {
         artist: 'Armand Hammer',
         title: 'Shrines',
@@ -62,12 +62,13 @@ const findTape = (tape) => {
     return result;
 }
 
-export const addItem = (band, tit, yr, genre, price) => {
-    // let item = {artist: band, title: tit, year: yr, genre: genre, price: price}
-    
-    if(tapes.includes(item)===false){
-        tapes.push(item);
-        console.log(item);
+export const addItem = (artist, title, year, genre, price) => {
+    let newTape = {artist: artist, title: title, year: year, genre: genre, price: price}
+    let index = tapes.findIndex(tape => tape.title === newTape.title);
+    if(index === -1){
+        tapes.push(newTape);
+        console.log(index);
+        console.log(newTape);
         console.log(tapes);
         return true;
     }else{
@@ -75,11 +76,13 @@ export const addItem = (band, tit, yr, genre, price) => {
     }
 }
 
-export const deleteItem = (artist) => {
-    if(tapes.includes(artist)===true){
-    tapes = tapes.filter(tape => tape.artist !== artist)
-    return true;
-    } else {
+export const deleteItem = (artist, title, year, genre, price) => {
+    let newTape = {artist: artist, title: title, year: year, genre: genre, price: price}
+    let index = tapes.findIndex(tape => tape.title === newTape.title);
+    if(index === -1){
         return false;
+    } else {
+        tapes = tapes.filter(tape => tape.artist !== artist)
+        return true;
     }
 }

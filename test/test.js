@@ -14,11 +14,21 @@ describe("tapes data module", () => {
 
  it("adds requested tape", function() {
     let result = tape.addItem("Primitive Man", "Caustic", 2017, "metal", 10.98);
-    expect(result.added).to.be.true;
+    expect(result).to.be.true;
   });
  
   it("fails with duplicate tape", () => {
     let result = tape.addItem("Death", "Leprosy", 1988, "death metal", 11.00);
-    expect(result.added).to.be.false;
+    expect(result).to.be.false;
+  });
+
+  it("deletes an existing book", function() {
+    let result = tape.deleteItem("Death", "Leprosy", 1988, "death metal", 11.00);
+    expect(result).to.be.true;
+  });
+
+it("fails to delete an invalid book", function() {
+    let result = tape.deleteItem("asdfsd");
+    expect(result).to.be.false;
   });
 });
