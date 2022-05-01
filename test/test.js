@@ -8,7 +8,7 @@ describe("tapes data module", () => {
     });
 
     it("fails with nonexistent tape", () => {
-        let result = tape.getItem("fake");
+        let result = tape.getItem("Funkadelic");
         expect(result).to.be.undefined;
     });
 
