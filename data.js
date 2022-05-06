@@ -63,7 +63,7 @@ const findTape = (tape) => {
 }
 
 export const addItem = (artist, title, year, genre, price) => {
-    let newTape = {artist: artist, title: title, year: year, genre: genre, price: price}
+    let newTape = {artist, title, year, genre, price};
     let index = tapes.findIndex(tape => tape.title === newTape.title);
     if(index === -1){
         tapes.push(newTape);
@@ -74,7 +74,7 @@ export const addItem = (artist, title, year, genre, price) => {
 }
 
 export const deleteItem = (artist, title, year, genre, price) => {
-    let newTape = {artist: artist, title: title, year: year, genre: genre, price: price}
+    let newTape = {artist, title, year, genre, price};
     let index = tapes.findIndex(tape => tape.title === newTape.title);
     if(index === -1){
         return false;
