@@ -30,6 +30,17 @@ app.get('/about', (req,res) => {
   res.type('text/plain');
   res.send('About page');
 });
+
+app.get('/delete', (req,res) => {
+  Tape.remove({ artist:req.query.artist}, (err, result) => {
+    if (err){
+        console.log(err)
+    }else{
+        console.log("Result :", result) 
+    }
+});
+}
+)
  
 app.use((req,res) => {
   res.type('text/plain');
