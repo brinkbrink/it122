@@ -2,6 +2,7 @@
 // import * as tape from './data.js';
 // import path from 'path';
 import express from 'express';
+// import { restart } from 'nodemon';
 import { Tape } from "./Tapes.js";
 
 
@@ -32,11 +33,13 @@ app.get('/about', (req,res) => {
 });
 
 app.get('/delete', (req,res) => {
-  Tape.remove({ artist:req.query.artist}, (err, result) => {
+  Tape.deleteOne({ artist:req.query.artist}, (err, result) => {
     if (err){
-        console.log(err)
+        console.log(err);
     }else{
-        console.log("Result :", result) 
+        res.type('text/html');
+        res.render('delete', {result: Tape})
+        console.log("Result :", result);
     }
 });
 }
