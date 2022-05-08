@@ -6,7 +6,7 @@
 <h3>Tapes</h3>
 
 <% tapes.forEach(function(tape) { %>
-    <li><a href="detail?artist=<%= tape.artist %>"> <%= tape.artist %></a> <a href="delete?artist=<%= tape.artist %>">Delete tape</a></a></li>
+    <li><a href="detail?artist=<%= tape.artist %>"> <%= tape.artist %></a> <span class="trash"><a href="delete?artist=<%= tape.artist %>">🚮</a></span></li>
 <% }); %>
 </main>
 </body>

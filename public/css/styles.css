@@ -41,3 +41,7 @@ a:hover {
     color: #7F96FF;
     text-decoration-style: wavy;
 }
+
+.trash a {
+    text-decoration-line: none;
+}
