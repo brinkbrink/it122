@@ -2,8 +2,11 @@
     <link rel="stylesheet" href="/css/styles.css">
     <body>
         <main>
-                <h3>You have deleted <%= result.deletedCount %> items!</h3>
-                <p><%=  result.deletedCount %></p>
+                <% if (result.deletedCount === 0) {%>
+                <h3>You have not deleted any items!</h3>
+                <% }else{ %>
+                <h3>You have deleted an item!</h3>
+                <% } %>
         </main>
     </body>
 </html>
