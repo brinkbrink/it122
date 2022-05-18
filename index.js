@@ -4,6 +4,7 @@
 import express from 'express';
 // import { restart } from 'nodemon';
 import { Tape } from "./Tapes.js";
+import cors from 'cors';
 
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.static('./public')); // set location for static files
 app.use(express.urlencoded({ extended: true }));//Parse URL-encoded bodies
 app.use(express.json()); //Used to parse JSON bodies
 app.set("view engine", "ejs");
+app.use('/api', cors());
 
 
 app.get('/', (req, res) => {
@@ -23,7 +25,7 @@ app.get('/', (req, res) => {
 
 app.get('/detail', (req,res) => {
   Tape.findOne({ artist:req.query.artist }).lean().then((tape) => {
-          res.render('details', {result: tape} )
+          res.render('details', {result: tape, artist:req.query.artist} )
       })
 })
 
@@ -34,14 +36,16 @@ app.get('/about', (req,res) => {
 
 app.get('/delete', (req,res) => {
   Tape.deleteOne({ artist:req.query.artist}, (err, result) => {
-    if (err){
-        console.log(err);
+    if (result.deletedCount === 0){
+        console.log(err, "this don't work", result);
+        res.render('delete', {result})
     }else{
         res.type('text/html');
         res.render('delete', {result: Tape})
-        console.log("Result :", result);
+        console.log("Result :", result, "deleted count:", result.deletedCount);
     }
 });
+
 }
 )
  
