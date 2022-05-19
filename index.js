@@ -82,28 +82,39 @@ app.post('/add', (req, res) => {
   Tape.updateOne({'artist': req.body.artist,}, newTape, {upsert:true}, (err, result) => {
       if (err) return next(err);
       console.log(result);
-      res.send( req.body.artist + " tape added");
+      // res.send( req.body.artist + " tape added");
       res.json(newTape)
   });
 });
 
-app.post('/api/v1/add/', (req,res, next) => {
-  console.log(req.body)
-  if (!req.body._id) { 
+// app.post('/api/v1/add/', (req,res, next) => {
+//   console.log(req.body)
+//   if (!req.body._id) { 
 
-      let tape = newTape({artist:req.body.artist, title:req.body.title, year:req.body.year, genre:req.body.genre, price:req.body.price});
-      Tape.save((err,newTape) => {
-          if (err) return next(err);
-          console.log(newTape)
-          res.json({tape});
-      });
-  } else { 
-      Tape.updateOne({artist:req.body.artist, title:req.body.title, year:req.body.year, genre:req.body.genre, price:req.body.price}, (err, result) => {
-          if (err) return next(err);
-          res.json({updated: result.nModified, _id: req.body._id});
-      });
-  }
-});
+//       let tape = new Tape({artist:req.body.artist, title:req.body.title, year:req.body.year, genre:req.body.genre, price:req.body.price});
+//       tape.save((err,tape) => {
+//           if (err) return next(err);
+//           console.log(newTape)
+//           res.json({tape});
+//       });
+//   } else { 
+//       Tape.updateOne({artist:req.body.artist, title:req.body.title, year:req.body.year, genre:req.body.genre, price:req.body.price}, (err, result) => {
+//           if (err) return next(err);
+//           res.json({updated: result.nModified, _id: req.body._id});
+//       });
+//   }
+// });
+
+// app.post('/api/v1/add', (req, res) => {
+//   const data = new Tape({artist: req.body.artist, title: req.body.title, year: req.body.year, genre: req.body.genre, price: req.body.price});
+//   try{
+//     const saveData = data.save();
+//     res.status(200).json(saveData)
+//   } 
+//   catch(error) {
+//     res.status(400).json({message: error.message})
+//   }
+// })
 
  
 app.use((req,res) => {
