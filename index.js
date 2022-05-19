@@ -76,7 +76,7 @@ app.get('/api/v1/delete/:title', (req,res, next) => {
   });
 });
 
-app.post('/add', (req, res) => {
+app.post('/api/v1/add', (req, res) => {
   const newTape = {'artist': req.body.artist, 'title': req.body.title, 'year': req.body.year, 'genre': req.body.genre, 'price': req.body.price }
 
   Tape.updateOne({'artist': req.body.artist,}, newTape, {upsert:true}, (err, result) => {
