@@ -4,7 +4,6 @@
 import express from 'express';
 import { Tape } from "./Tapes.js";
 import cors from 'cors';
-// import { router } from './routes.js';
 
 const app = express();
 
@@ -13,7 +12,6 @@ app.use(express.static('./public')); // set location for static files
 app.use(express.urlencoded({ extended: true }));//Parse URL-encoded bodies
 app.use(express.json()); //Used to parse JSON bodies
 app.set("view engine", "ejs");
-// app.use('/api', router)
 app.use('/api', cors());
 
 
