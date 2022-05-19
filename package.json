@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "npx nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/brinkbrink/it122#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "ejs": "^3.1.7",
     "express": "^4.17.3",
     "mongoose": "^6.3.2",

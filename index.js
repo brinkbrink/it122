@@ -2,12 +2,11 @@
 // import * as tape from './data.js';
 // import path from 'path';
 import express from 'express';
-// import { restart } from 'nodemon';
 import { Tape } from "./Tapes.js";
 import cors from 'cors';
 
-
 const app = express();
+const router = express.Router();
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('./public')); // set location for static files
@@ -16,23 +15,23 @@ app.use(express.json()); //Used to parse JSON bodies
 app.set("view engine", "ejs");
 app.use('/api', cors());
 
-
 app.get('/', (req, res) => {
   Tape.find({}).lean().then((tapes) => {
       res.render('home', { tapes });
   })
 })
 
-app.get('/detail', (req,res) => {
-  Tape.findOne({ artist:req.query.artist }).lean().then((tape) => {
-          res.render('details', {result: tape, artist:req.query.artist} )
-      })
-})
-
 app.get('/about', (req,res) => {
   res.type('text/plain');
   res.send('About page');
 });
+
+app.get('/detail/:artist', (req,res) => {
+  let artist = req.params.artist;
+  Tape.findOne({ artist: artist }).lean().then((tape) => {
+          res.render('details', {result: tape, artist: artist} )
+      })
+})
 
 app.get('/delete', (req,res) => {
   Tape.deleteOne({ artist:req.query.artist}, (err, result) => {
