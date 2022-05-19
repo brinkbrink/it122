@@ -23,9 +23,12 @@ app.get('/', (req, res) => {
 
 app.get('/api/v1/', (req,res, next) => {
   Tape.find((err,results) => {
-      if (err || !results) return next(err);
-      res.json(results);
-  });
+    if (err || !results) {
+      res.status(200).json({"message":"Database not found"});
+  } else {
+      res.json( results );
+   }
+});
 });
 
 app.get('/about', (req,res) => {
@@ -40,12 +43,12 @@ app.get('/detail/:artist', (req,res) => {
       })
 })
 
-app.get('/api/v1/:artist', (req, res, next) => {
+app.get('/api/v1/:artist', (req, res) => {
   let artist = req.params.artist;
   console.log(artist);
   Tape.findOne({artist: artist}, (err, result) => {
       if (err || !result) {
-          res.status(404).json({"message":"not found"});
+          res.status(200).json({"message":"Artist not found"});
       } else {
           res.json( result );
        }
