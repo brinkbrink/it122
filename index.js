@@ -79,11 +79,9 @@ app.get('/api/v1/delete/:title', (req,res, next) => {
 
 app.post('/api/v1/add', (req, res) => {
   const newTape = {'artist': req.body.artist, 'title': req.body.title, 'year': req.body.year, 'genre': req.body.genre, 'price': req.body.price }
-
   Tape.updateOne({'artist': req.body.artist,}, newTape, {upsert:true}, (err, result) => {
       if (err) return next(err);
       console.log(result);
-      // res.send( req.body.artist + " tape added");
       res.json(newTape)
   });
 });
