@@ -61,25 +61,28 @@
     color: '#7F96FF'
     };
 
-
+    const greeting = <main><h1>Hello, we haven't met!</h1></main>;
     const details = "details";
     const tapes = <%- tapes %>;
         console.log(tapes);
     const tapesList = tapes.map((tape) => <li key={tape.artist}><a href={tape.artist}>{tape.artist}</a></li>)
       console.log(tapesList);
 
-    // class App extends React.Component {
-    //   constructor(props) {
-    //     let tapes = <%- tapes %>;
-    //     console.log(tapes);
-    //     let tapesList = tapes.map((tape) => <li key={tape}>{tape}</li>)
-    //   }
-    // }
+    const ColoredLine = ({ color }) => (
+    <hr
+        style={{
+            color: color,
+            backgroundColor: color,
+            height: .1
+        }}
+    />
+    );
 
     const MyApp = (props) => {
         if (props.user) {
             return <main>
               <h2>Home</h2>
+              <ColoredLine color="#333745" />
               <h3>Tapes</h3>
               {tapesList}
               <p style={divStyle}>You've reached the end of the tapes list, {props.user}!</p></main>;
@@ -91,7 +94,7 @@
 
     const container = document.getElementById('root');
     const root = ReactDOM.createRoot(container);
-    root.render(<MyApp user="DUMMMY"/>);
+    root.render(<MyApp user="DUMMY"/>);
 
     </script>
     <!--
