@@ -62,10 +62,9 @@
     };
 
     const greeting = <main><h1>Hello, we haven't met!</h1></main>;
-    const details = "details";
-    const tapes = <%- tapes %>;
+    let tapes = <%- tapes %>;
         console.log(tapes);
-    const tapesList = tapes.map((tape) => <li key={tape.artist}><a href={tape.artist}>{tape.artist}</a></li>)
+    let tapesList = tapes.map((tape) => <li key={tape.artist}><a href={tape.artist}>{tape.artist}</a></li>)
       console.log(tapesList);
 
     const ColoredLine = ({ color }) => (
