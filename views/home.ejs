@@ -1,12 +1,113 @@
-<link rel="stylesheet" href="/css/styles.css">
-<body>
-<main>
-<h2>Home</h2>
-<hr>
-<h3>Tapes</h3>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tapes on Deck</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <style>
 
-<% tapes.forEach(function(tape) { %>
-    <li><a href="detail/<%= tape.artist %>"> <%= tape.artist %></a> <span class="trash"><a href="delete/<%= tape.artist %>">🚮</a></span></li>
-<% }); %>
-</main>
-</body>
+        html {
+            color: #333745;
+            background-color: #7CA5B8;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+        }
+
+        main {
+          background-color: #FFEEDB;
+          width: 90%;
+          margin: auto;
+          padding: .5em 2em 2em 2em;
+          border-radius: 15px;
+        }
+        h2, h3, h4 {
+          font-family: Georgia, serif;
+          font-size: 2em;
+        }
+
+        h3 {
+          font-size: 1.5em;
+        }
+
+        h4 {
+            font-size: 1.2em;
+        }
+
+        .title {
+            font-style: italic;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+
+        a {
+            color: #FE5F55;
+        }
+
+        a:hover {
+            color: #7F96FF;
+            text-decoration-style: wavy;
+        }
+    </style>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+    
+    const divStyle = {
+    color: '#7F96FF'
+    };
+
+    const greeting = <main><h1>Hello, we haven't met!</h1></main>;
+    let tapes = <%- tapes %>;
+        console.log(tapes);
+    let tapesList = tapes.map((tape) => <li key={tape.artist}><a href={tape.artist}>{tape.artist}</a></li>)
+      console.log(tapesList);
+
+    const ColoredLine = ({ color }) => (
+    <hr
+        style={{
+            color: color,
+            backgroundColor: color,
+            height: .1
+        }}
+    />
+    );
+
+    const MyApp = (props) => {
+        if (props.user) {
+            return <main>
+              <h2>Home</h2>
+              <ColoredLine color="#333745" />
+              <h3>Tapes</h3>
+              {tapesList}
+              <p style={divStyle}>You've reached the end of the tapes list, {props.user}!</p></main>;
+       
+        }
+        return greeting;
+        }
+        
+
+    const container = document.getElementById('root');
+    const root = ReactDOM.createRoot(container);
+    root.render(<MyApp user="DUMMY"/>);
+
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this section for a production-ready setup with JSX:
+      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
+
+      In a larger project, you can use an integrated toolchain that includes JSX instead:
+      https://reactjs.org/docs/create-a-new-react-app.html
+
+      You can also use React without JSX, in which case you can remove Babel:
+      https://reactjs.org/docs/react-without-jsx.html
+    -->
+  </body>
+</html>
