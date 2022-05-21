@@ -75,12 +75,15 @@
     />
     );
 
+    const header = <h2>Home</h2>
+    const subHeader = <h3>Tapes</h3>
+
     const MyApp = (props) => {
         if (props.user) {
             return <main>
-              <h2>Home</h2>
+              {header}
               <ColoredLine color="#333745" />
-              <h3>Tapes</h3>
+              {subHeader}
               {tapesList}
               <p style={divStyle}>You've reached the end of the tapes list, {props.user}!</p></main>;
        
