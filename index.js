@@ -17,7 +17,7 @@ app.use('/api', cors());
 
 app.get('/', (req, res) => {
   Tape.find({}).lean().then((tapes) => {
-      res.render('home', { tapes });
+      res.render('home2', { tapes: JSON.stringify(tapes) });
   })
 })
 
@@ -36,10 +36,12 @@ app.get('/about', (req,res) => {
   res.send('About page');
 });
 
-app.get('/detail/:artist', (req,res) => {
+app.get('/:artist', (req,res) => {
   let artist = req.params.artist;
+  
   Tape.findOne({ artist: artist }).lean().then((tape) => {
-          res.render('details', {result: tape, artist: artist} )
+    let detail = tape;
+          res.render('details', {result: tape, artist: artist, title: detail.title, genre: detail.genre, year: detail.year, price: detail.price} )
       })
 })
 
