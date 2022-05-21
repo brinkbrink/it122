@@ -17,7 +17,7 @@ app.use('/api', cors());
 
 app.get('/', (req, res) => {
   Tape.find({}).lean().then((tapes) => {
-      res.render('home2', { tapes: JSON.stringify(tapes) });
+      res.render('home', { tapes: JSON.stringify(tapes) });
   })
 })
 
