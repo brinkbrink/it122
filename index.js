@@ -57,9 +57,9 @@ app.get('/api/v1/:artist', (req, res) => {
   });
 });
 
-app.get('/delete/:artist', (req,res) => {
+app.get('/delete/:title', (req,res) => {
   let artist = req.params.artist;
-  Tape.deleteOne({ artist:artist}, (err, result) => {
+  Tape.deleteOne({ title:title}, (err, result) => {
     if (result.deletedCount === 0){
         res.render('delete', {result})
     }else{
