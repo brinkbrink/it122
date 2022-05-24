@@ -50,7 +50,7 @@ app.get('/api/v1/:artist', (req, res) => {
   console.log(artist);
   Tape.findOne({artist: artist}, (err, result) => {
       if (err || !result) {
-          res.status(200).json({"message":"Artist not found"});
+          res.status(200).json({"message":"Database error, artist not found"});
       } else {
           res.json( result );
        }
