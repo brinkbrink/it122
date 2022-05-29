@@ -16,7 +16,7 @@ mongoose.connection.on('open', () => {
 // values indicate the data type of each key
 const tapeSchema = new Schema({
  artist: { type: String, required: true },
- title: String,
+ title: { type: String, required: true },
  year: Date,
  genre: String,
  price: Number

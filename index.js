@@ -38,27 +38,26 @@ app.get('/about', (req,res) => {
 
 app.get('/:artist', (req,res) => {
   let artist = req.params.artist;
-  
   Tape.findOne({ artist: artist }).lean().then((tape) => {
-    let detail = tape;
+    console.log(artist);
           res.render('details', {result: tape, artist: artist, title: req.body.title, genre: req.body.genre, year: req.body.year, price: req.body.price} )
       })
 })
 
 app.get('/api/v1/:artist', (req, res) => {
   let artist = req.params.artist;
-  console.log(artist);
   Tape.findOne({artist: artist}, (err, result) => {
       if (err || !result) {
           res.status(500).json({"message":"Database error, artist not found"});
       } else {
+          console.log(result);
           res.json( result );
        }
   });
 });
 
 app.get('/delete/:title', (req,res) => {
-  let artist = req.params.artist;
+  let title = req.params.title;
   Tape.deleteOne({ title:title}, (err, result) => {
     if (result.deletedCount === 0){
         res.render('delete', {result})
@@ -80,24 +79,18 @@ app.get('/api/v1/delete/:title', (req,res, next) => {
 });
 
 app.post('/api/v1/add', (req, res) => {
-  if(!req.body.title){ // add if title does not exist yet
-    let newTape = new Tape({artist: req.body.artist, title: req.body.title, year: req.body.year, genre: req.body.genre, price: req.body.price }); // create new tape
-    newTape.save((err, newTape) => { // save new tape to db
-      if (err) {
-        res.status(500).json({"message":"Database error, tape not added"});
-      } else { 
-      res.json({updated: 0, title: newTape.title});
+  const newTape = {'artist': req.body.artist, 'title': req.body.title, 'year': req.body.year, 'genre': req.body.genre, 'price': req.body.price }
+  Tape.updateOne({'title': req.body.title,}, newTape, {upsert:true}, (err, result) => {
+    if (err || !result) {
+      res.status(200).json({"message":"Database error, tape not added"});
+  } else {
+      if(result.modifiedCount===0){
+        res.json({"message":"tape added","result":result})
+      } else {
+        res.json({"message":"tape modified","result":result});
       }
-    });
-  }else{ // update if title exists
-    Tape.updateOne({'artist': req.body.artist,}, newTape, (err, result) => {
-      if (err || !result) {
-        res.status(500).json({"message":"Database error, tape not updated"});
-    } else {
-        res.json({updated: result.nModified, title: req.body.title});
-     }
-    });
-  }
+   }
+  });
 });
  
 app.use((req,res) => {
