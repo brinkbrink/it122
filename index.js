@@ -39,7 +39,6 @@ app.get('/about', (req,res) => {
 app.get('/:artist', (req,res) => {
   let artist = req.params.artist;
   Tape.findOne({ artist: artist }).lean().then((tape) => {
-    console.log(artist);
           res.render('details', {result: tape, artist: artist, title: req.body.title, genre: req.body.genre, year: req.body.year, price: req.body.price} )
       })
 })
@@ -50,7 +49,6 @@ app.get('/api/v1/:artist', (req, res) => {
       if (err || !result) {
           res.status(500).json({"message":"Database error, artist not found"});
       } else {
-          console.log(result);
           res.json( result );
        }
   });
