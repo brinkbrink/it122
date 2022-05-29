@@ -83,13 +83,13 @@ app.post('/api/v1/add', (req, res) => {
   Tape.updateOne({'title': req.body.title,}, newTape, {upsert:true}, (err, result) => {
     if (err || !result) {
       res.status(200).json({"message":"Database error, tape not added"});
-  } else {
-      if(result.modifiedCount===0){
-        res.json({"message":"tape added","result":result})
-      } else {
-        res.json({"message":"tape modified","result":result});
-      }
-   }
+    } else {
+        if(result.modifiedCount===0){
+          res.json({"message":"tape added","result":result})
+        } else {
+          res.json({"message":"tape modified","result":result});
+        }
+    }
   });
 });
  
