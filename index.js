@@ -74,15 +74,16 @@ app.get('/api/v1/delete/:title', (req,res, next) => {
 });
 
 app.post('/api/v1/add', (req, res) => {
-  const newTape = {'artist': req.body.artist, 'title': req.body.title, 'year': req.body.year, 'genre': req.body.genre, 'price': req.body.price }
-  Tape.updateOne({'title': req.body.title,}, newTape, {upsert:true}, (err, result) => {
+  let title = req.body.title;
+  let newTape = {artist: req.body.artist, title: req.body.title, year: req.body.year, genre: req.body.genre, price: req.body.price }
+  Tape.updateOne({title: req.body.title,}, newTape, {upsert:true}, (err, result) => {
     if (err || !result) {
       res.status(200).json({"message":"Database error, tape not added"});
     } else {
         if(result.modifiedCount===0){
-          res.json({"message":"tape added","result":result})
+          res.json({"message":`${title} tape added`,"result":result})
         } else {
-          res.json({"message":"tape modified","result":result});
+          res.json({"message":`${title} tape modified`,"result":result});
         }
     }
   });
