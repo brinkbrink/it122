@@ -49,6 +49,11 @@
             color: #7F96FF;
             text-decoration-style: wavy;
         }
+
+        label {
+            display: block;
+            padding: .5vh;
+        }
     </style>
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -78,13 +83,14 @@
         return (
             <div>
                 <hr/>
-                Details:
-                <ul>
-                <li>{props.tape.artist}</li>
-                <li>{props.tape.year}</li>
-                <li>{props.tape.genre}</li>
-                <li>${props.tape.price}</li>
-                </ul>
+                <h4>Details:</h4>
+                <form id="edit-tape-detail">
+                    <label>Title: <input type="text" name="title" onChange={props.onChange} value={props.tape.title || ""}/></label>
+                    <label>Artist: <input type="text" name="artist" onChange={props.onChange} value={props.tape.artist || ""}/></label>
+                    <label>Year: <input type="text" name="year" onChange={props.onChange} value={props.tape.year || ""}/></label>
+                    <label>Genre: <input type="text" name="genre" onChange={props.onChange} value={props.tape.genre || ""}/></label>
+                    <label>Artist: <input type="text" name="price" onChange={props.onChange} value={props.tape.price || ""}/></label>
+                </form>
             </div>
         )
     }
@@ -96,7 +102,6 @@
                 tapes: <%- tapes %>,
                 currentTape: {}
             };
-            // this.selectItem = this.selectItem.bind(this);
         }
 
         showDetail = (event) => {
@@ -104,6 +109,15 @@
             let newTape = this.state.tapes.find((tape) => tape.title == title);
             this.setState({"currentTape":newTape})
         }
+
+        fieldChanged = (event) => {
+            let newTape = this.state.currentTape;
+            newTape[event.target.name] = event.target.value;
+            this.setState({currentTape: newTape});
+            console.log(event.target.value);
+        }
+
+
 
         render() {
             return (
@@ -114,6 +128,7 @@
                 <Tapes data={this.state.tapes} clickHandler = {this.showDetail}/>
                 <TapeDetail
                 tape={this.state.currentTape}
+                onChange={this.fieldChanged}
                 />
             </main>
             )
