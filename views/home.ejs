@@ -54,21 +54,39 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-    <h2>blah blah blah</h2>
     <div id="root"></div>
     <script type="text/babel">
 
+    const ColoredLine = ({ color }) => (
+        <hr
+            style={{
+                color: color,
+                backgroundColor: color,
+                height: .1
+            }}
+        />
+    );
+    const header = <h2>Home</h2>;
+    const subHeader = <h3>Tapes</h3>;
 
     const Tapes = (props) => {
         let tapesList = props.data.map((tape) => <li key={tape.title} id={tape.title} onClick={props.clickHandler}>{tape.title}</li>);
         return <ul>{tapesList}</ul>;
     }
 
-    const header = <h2>Home</h2>;
-    const subHeader = <h3>Tapes</h3>;
-
     const TapeDetail = (props) => {
-        return <div>detail<hr/>{props.tape.artist}</div>
+        return (
+            <div>
+                <hr/>
+                Details:
+                <ul>
+                <li>{props.tape.artist}</li>
+                <li>{props.tape.year}</li>
+                <li>{props.tape.genre}</li>
+                <li>${props.tape.price}</li>
+                </ul>
+            </div>
+        )
     }
     
     class TapeApp extends React.Component {
@@ -82,8 +100,6 @@
         }
 
         showDetail = (event) => {
-            console.log(event.target);
-            console.log(event.target.innerText);
             let title = event.target.innerText;
             let newTape = this.state.tapes.find((tape) => tape.title == title);
             this.setState({"currentTape":newTape})
@@ -91,12 +107,15 @@
 
         render() {
             return (
-            <div><h2>Listed Tapes</h2>
+            <main>
+                {header}
+                <ColoredLine color="#333745" />
+                {subHeader}
                 <Tapes data={this.state.tapes} clickHandler = {this.showDetail}/>
                 <TapeDetail
                 tape={this.state.currentTape}
                 />
-            </div>
+            </main>
             )
         }
     }
