@@ -54,16 +54,21 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
+    <h2>blah blah blah</h2>
     <div id="root"></div>
     <script type="text/babel">
+   
     
     const greetStyle = {
     color: '#333745'
     };
 
-    const greeting = <main><h1>Hello, we haven't met!</h1></main>;
-    let tapes = <%- tapes %>;
-    let tapesList = tapes.map((tape) => <li key={tape.title}><a href={`detail/${tape.title}`}>{tape.title}</a></li>);
+
+    const Tapes = (props) => {
+        let tapesList = props.data.map((tape) => <li key={tape.title}><a href={`detail/${tape.title}`}>{tape.title}</a></li>);
+        return <ul>{tapesList}</ul>;
+    }
+    
 
     const ColoredLine = ({ color }) => (
     <hr
@@ -78,20 +83,6 @@
     const header = <h2>Home</h2>;
     const subHeader = <h3>Tapes</h3>;
 
-    // const MyApp = (props) => {
-    //     if (props.user) {
-    //         return <main>
-    //           {header}
-    //           <ColoredLine color="#333745" />
-    //           {subHeader}
-    //           {tapesList}
-    //           <p style={greetStyle}>You've reached the end of the tapes list, {props.user}!</p>
-    //           </main>;
-       
-    //     }
-    //     return greeting;
-    //     }
-
     const TapeDetail = (props) => {
         return <div>detail</div>
     }
@@ -103,27 +94,28 @@
                 tapes: <%- tapes %>,
                 currentTape: {}
             };
-            this.selectItem = this.selectItem.bind(this);
+            // this.selectItem = this.selectItem.bind(this);
+        }
+        render() {
+            <div><h2>Listed Tapes</h2>
+                <Tapes data={this.state.tapes} />
+                <TapeDetail
+                tape={this.state.currentTape}
+                />
+            </div>
         }
     }
 
+    // ReactDOM.render(
+    //     <div><TapeApp /></div>,
+    //     document.getElementById('root')
+    // );
+
+    
     const container = document.getElementById('root');
     const root = ReactDOM.createRoot(container);
-    root.render(<MyApp user="DUMMY"/>);
+    root.render(<TapeApp />);
 
     </script>
-    <!--
-      Note: this page is a great way to try React but it's not suitable for production.
-      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
-
-      Read this section for a production-ready setup with JSX:
-      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
-
-      In a larger project, you can use an integrated toolchain that includes JSX instead:
-      https://reactjs.org/docs/create-a-new-react-app.html
-
-      You can also use React without JSX, in which case you can remove Babel:
-      https://reactjs.org/docs/react-without-jsx.html
-    -->
   </body>
 </html>
