@@ -78,34 +78,20 @@
     const header = <h2>Home</h2>;
     const subHeader = <h3>Tapes</h3>;
 
-    // const MyApp = (props) => {
-    //     if (props.user) {
-    //         return <main>
-    //           {header}
-    //           <ColoredLine color="#333745" />
-    //           {subHeader}
-    //           {tapesList}
-    //           <p style={greetStyle}>You've reached the end of the tapes list, {props.user}!</p>
-    //           </main>;
+    const MyApp = (props) => {
+        if (props.user) {
+            return <main>
+              {header}
+              <ColoredLine color="#333745" />
+              {subHeader}
+              {tapesList}
+              <p style={greetStyle}>You've reached the end of the tapes list, {props.user}!</p>
+              </main>;
        
-    //     }
-    //     return greeting;
-    //     }
-
-    const TapeDetail = (props) => {
-        return <div>detail</div>
-    }
-    
-    class TapeApp extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                tapes: <%- tapes %>,
-                currentTape: {}
-            };
-            this.selectItem = this.selectItem.bind(this);
         }
-    }
+        return greeting;
+        }
+        
 
     const container = document.getElementById('root');
     const root = ReactDOM.createRoot(container);
