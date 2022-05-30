@@ -80,7 +80,7 @@ app.post('/api/v1/add', (req, res) => {
     if (!req.body.title || !req.body.artist){
       res.json({"message":"Title and artist are required fields"})
     }
-    if (err || !result) {
+    else if (err || !result) {
       res.status(200).json({"message":"Database error, tape not added"});
     } else {
         if(result.modifiedCount===0){
