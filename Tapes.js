@@ -17,7 +17,7 @@ mongoose.connection.on('open', () => {
 const tapeSchema = new Schema({
  artist: { type: String, required: true },
  title: { type: String, required: true },
- year: Date,
+ year: Number,
  genre: String,
  price: Number
 });
