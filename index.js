@@ -90,12 +90,15 @@ app.post('/api/v1/add', (req, res) => {
       }
     });
   }else{ // update if title exists
-    Tape.updateOne({'artist': req.body.artist,}, newTape, (err, result) => {
+    Tape.updateOne({'title': req.body.title,}, newTape, (err, result) => {
+      if(!req.body.title || !req.body.title){
+        res.status(500).json({"message":"Title and artist are required"})
+      }
       if (err || !result) {
         res.status(500).json({"message":"Database error, tape not updated"});
-    } else {
+      } else {
         res.json({updated: result.nModified, title: req.body.title});
-     }
+      }
     });
   }
 });
