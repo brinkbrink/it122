@@ -57,34 +57,18 @@
     <h2>blah blah blah</h2>
     <div id="root"></div>
     <script type="text/babel">
-   
-    
-    const greetStyle = {
-    color: '#333745'
-    };
 
 
     const Tapes = (props) => {
-        let tapesList = props.data.map((tape) => <li key={tape.title}><a href={`detail/${tape.title}`}>{tape.title}</a></li>);
+        let tapesList = props.data.map((tape) => <li key={tape.title} id={tape.title} onClick={props.clickHandler}>{tape.title}</li>);
         return <ul>{tapesList}</ul>;
     }
-    
-
-    const ColoredLine = ({ color }) => (
-    <hr
-        style={{
-            color: color,
-            backgroundColor: color,
-            height: .1
-        }}
-    />
-    );
 
     const header = <h2>Home</h2>;
     const subHeader = <h3>Tapes</h3>;
 
     const TapeDetail = (props) => {
-        return <div>detail</div>
+        return <div>detail<hr/>{props.tape.title}</div>
     }
     
     class TapeApp extends React.Component {
@@ -96,22 +80,27 @@
             };
             // this.selectItem = this.selectItem.bind(this);
         }
+
+        showDetail = (event) => {
+            console.log(event.target);
+            console.log(event.target.innerText);
+            let title = event.target.innerText;
+            let newTape = this.state.tapes.find((tape) => tape.title == title);
+            console.log(newTape);
+        }
+
         render() {
+            return (
             <div><h2>Listed Tapes</h2>
-                <Tapes data={this.state.tapes} />
+                <Tapes data={this.state.tapes} clickHandler = {this.showDetail}/>
                 <TapeDetail
                 tape={this.state.currentTape}
                 />
             </div>
+            )
         }
     }
 
-    // ReactDOM.render(
-    //     <div><TapeApp /></div>,
-    //     document.getElementById('root')
-    // );
-
-    
     const container = document.getElementById('root');
     const root = ReactDOM.createRoot(container);
     root.render(<TapeApp />);
