@@ -33,7 +33,7 @@ app.get('/about', (req,res) => {
   res.send('About page');
 });
 
-app.get('/:title', (req,res) => {
+app.get('/detail/:title', (req,res) => {
   let title = req.params.title;
   Tape.findOne({ title: title }).lean().then((tape) => {
           res.render('details', {result: tape, artist: req.body.artist, title: title, genre: req.body.genre, year: req.body.year, price: req.body.price} )
@@ -76,7 +76,7 @@ app.get('/api/v1/delete/:title', (req,res, next) => {
 
 app.post('/api/v1/add', (req, res) => {
   let title = req.body.title;
-  let newTape = {artist: req.body.artist, title: req.body.title, year: req.body.year, genre: req.body.genre, price: req.body.price }
+  let newTape = {artist: req.body.artist, title: req.body.title, year: req.body.year, genre: req.body.genre, price: req.body.price}
   if (!req.body.title || !req.body.artist){
     res.json({"message":"Tape not added or modified: title and artist are required fields"})
   } else {
