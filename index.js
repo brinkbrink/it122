@@ -33,20 +33,20 @@ app.get('/about', (req,res) => {
   res.send('About page');
 });
 
-app.get('/:artist', (req,res) => {
-  let artist = req.params.artist;
-  Tape.findOne({ artist: artist }).lean().then((tape) => {
-          res.render('details', {result: tape, artist: artist, title: req.body.title, genre: req.body.genre, year: req.body.year, price: req.body.price} )
+app.get('/:title', (req,res) => {
+  let title = req.params.title;
+  Tape.findOne({ title: title }).lean().then((tape) => {
+          res.render('details', {result: tape, artist: req.body.artist, title: title, genre: req.body.genre, year: req.body.year, price: req.body.price} )
       })
 })
 
-app.get('/api/v1/:artist', (req, res) => {
-  let artist = req.params.artist;
-  Tape.findOne({artist: artist}, (err, result) => {
+app.get('/api/v1/:title', (req, res) => {
+  let title = req.params.title;
+  Tape.findOne({title: title}, (err, result) => {
       if (err || !result) {
           res.status(500).json({"message":"Database error, artist not found"});
       } else {
-          res.json( result );
+          res.json({"message": `${title} found`, "Result": result} );
        }
   });
 });
@@ -64,11 +64,12 @@ app.get('/delete/:title', (req,res) => {
 });
 
 app.get('/api/v1/delete/:title', (req,res, next) => {
+  let title = req.params.title;
   Tape.deleteOne({"title":req.params.title }, (err, result) => {
     if (err || !result) {
       res.status(500).json({"message":"Database error, title not found"});
   } else {
-      res.status(200).json({"Deleted": result});
+      res.status(200).json({"message": `${title} deleted`, "Result": result});
    }
   });
 });
