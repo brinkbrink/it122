@@ -68,7 +68,7 @@
     const subHeader = <h3>Tapes</h3>;
 
     const TapeDetail = (props) => {
-        return <div>detail<hr/>{props.tape.title}</div>
+        return <div>detail<hr/>{props.tape.artist}</div>
     }
     
     class TapeApp extends React.Component {
@@ -86,7 +86,7 @@
             console.log(event.target.innerText);
             let title = event.target.innerText;
             let newTape = this.state.tapes.find((tape) => tape.title == title);
-            console.log(newTape);
+            this.setState({"currentTape":newTape})
         }
 
         render() {
