@@ -77,11 +77,11 @@ app.get('/api/v1/delete/:title', (req,res, next) => {
 app.post('/api/v1/add', (req, res) => {
   let title = req.body.title;
   let newTape = {artist: req.body.artist, title: req.body.title, year: req.body.year, genre: req.body.genre, price: req.body.price }
+  if (!req.body.title || !req.body.artist){
+    res.json({"message":"Tape not added or modified: title and artist are required fields"})
+  } else {
   Tape.updateOne({title: req.body.title,}, newTape, {upsert:true}, (err, result) => {
-    if (!req.body.title || !req.body.artist){
-      res.json({"message":"Tape not added or modified: title and artist are required fields"})
-    }
-    else if (err || !result) {
+    if (err || !result) {
       res.status(200).json({"message":"Database error, tape not added"});
     } else {
         if(result.modifiedCount===0){
@@ -91,6 +91,7 @@ app.post('/api/v1/add', (req, res) => {
         }
     }
   });
+}
 });
  
 app.use((req,res) => {
