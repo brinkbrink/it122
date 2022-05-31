@@ -90,7 +90,7 @@
                     <label>Year: <input type="text" name="year" onChange={props.onChange} value={props.tape.year || ""}/></label>
                     <label>Genre: <input type="text" name="genre" onChange={props.onChange} value={props.tape.genre || ""}/></label>
                     <label>Artist: <input type="text" name="price" onChange={props.onChange} value={props.tape.price || ""}/></label>
-                    <button onClick={props.resetHandler} type="button">Cancel</button>
+                    <button onClick={props.resetHandler} type="button">Cancel Edit</button>
                 </form>
             </div>
         )
@@ -119,8 +119,7 @@
         }
 
         clearForm = (event) => {
-          
-          this.setState({"currentTape":{}})
+          this.setState({"currentTape":[{}]});
         }
 
         render() {
@@ -129,10 +128,11 @@
                 {header}
                 <ColoredLine color="#333745" />
                 {subHeader}
-                <Tapes data={this.state.tapes} clickHandler = {this.showDetail} resetHandler = {this.clearForm}/>
+                <Tapes data={this.state.tapes} clickHandler = {this.showDetail} />
                 <TapeDetail
                 tape={this.state.currentTape}
                 onChange={this.fieldChanged}
+                resetHandler={this.clearForm}
                 />
             </main>
             )
