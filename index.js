@@ -80,7 +80,7 @@ app.post('/api/v1/add', (req, res) => {
   if (!req.body.title || !req.body.artist){
     res.json({"message":"Tape not added or modified: title and artist are required fields"})
   } else {
-  Tape.updateOne({title: req.body.title,}, newTape, {upsert:true}, (err, result) => {
+  Tape.updateOne({_id: req.body._id,}, newTape, {upsert:true}, (err, result) => {
     if (err || !result) {
       res.status(200).json({"message":"Database error, tape not added"});
     } else {

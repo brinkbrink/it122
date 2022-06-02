@@ -59,8 +59,8 @@
             background-color: #7F96FF;
             color: #FFF;
             border-radius: 10%;
-            padding: .2vh 2vw;
-            margin-top: 2vh;
+            padding: .2vh 1vw;
+            margin: 2vh .2vw 0;
         }
     </style>
     <!-- Don't use this in production: -->
@@ -83,7 +83,7 @@
     const subHeader = <h3>Tapes</h3>;
 
     const Tapes = (props) => {
-        let tapesList = props.data.map((tape) => <li key={tape.title} id={tape.title} onClick={props.clickHandler}>{tape.title}</li>);
+        let tapesList = props.data.map((tape) => <li key={tape._id} id={tape._id} onClick={props.clickHandler}>{tape.title}</li>);
         return <ul>{tapesList}</ul>;
     }
 
@@ -97,9 +97,11 @@
                     <label>Artist: <input type="text" name="artist" onChange={props.onChange} value={props.tape.artist || ""}/></label>
                     <label>Year: <input type="text" name="year" onChange={props.onChange} value={props.tape.year || ""}/></label>
                     <label>Genre: <input type="text" name="genre" onChange={props.onChange} value={props.tape.genre || ""}/></label>
-                    <label>Artist: <input type="text" name="price" onChange={props.onChange} value={props.tape.price || ""}/></label>
+                    <label>Price: <input type="text" name="price" onChange={props.onChange} value={props.tape.price || ""}/></label>
                 </form>
                 <button onClick={props.resetHandler} type="button">Clear</button>
+                <button onClick={props.saveTape} type="button">Save</button>
+                <button onClick={props.deleteTape} type="button">Delete</button>
             </div>
         )
     }
@@ -114,8 +116,7 @@
         }
 
         showDetail = (event) => {
-            let title = event.target.innerText;
-            let newTape = this.state.tapes.find((tape) => tape.title == title);
+            let newTape = this.state.tapes.find((tape) => tape._id == event.target.id);
             this.setState({"currentTape":newTape})
         }
 
@@ -129,6 +130,31 @@
           this.setState({"currentTape":[{}]});
         }
 
+        saveTape = () => {
+            console.log(this.state.currentTape)
+            if (this.state.currentTape == {}) return;
+            let newTape = this.state.currentTape;
+
+            fetch("/api/v1/add/", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(this.state.currentTape)
+            })
+                .then(res => res.json())
+                .then((json) => { console.log(json)
+                if (!newTape._id) {
+                    newTape._id = json._id;
+                    let newList = this.state.tapes;
+                    newList.push(newTape);
+                    this.setState({tapes: newList})
+                }
+                });
+        }
+
+        deleteTape = () => {
+            console.log(this.state.currentTape)
+        }
+
         render() {
             return (
             <main>
@@ -140,6 +166,8 @@
                 tape={this.state.currentTape}
                 onChange={this.fieldChanged}
                 resetHandler={this.clearForm}
+                saveTape={this.saveTape}
+                deleteTape={this.deleteTape}
                 />
             </main>
             )
