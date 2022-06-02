@@ -98,8 +98,8 @@
                     <label>Year: <input type="text" name="year" onChange={props.onChange} value={props.tape.year || ""}/></label>
                     <label>Genre: <input type="text" name="genre" onChange={props.onChange} value={props.tape.genre || ""}/></label>
                     <label>Artist: <input type="text" name="price" onChange={props.onChange} value={props.tape.price || ""}/></label>
-                    <button onClick={props.resetHandler} type="button">Clear</button>
                 </form>
+                <button onClick={props.resetHandler} type="button">Clear</button>
             </div>
         )
     }
@@ -123,7 +123,6 @@
             let newTape = this.state.currentTape;
             newTape[event.target.name] = event.target.value;
             this.setState({currentTape: newTape});
-            console.log(event.target.value);
         }
 
         clearForm = (event) => {
