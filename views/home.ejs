@@ -93,11 +93,11 @@
                 <hr/>
                 <h4>Details:</h4>
                 <form id="edit-tape-detail">
-                    <label>Title: <input type="text" name="title" onChange={props.change} value={props.tape.title || ""}/></label>
-                    <label>Artist: <input type="text" name="artist" onChange={props.change} value={props.tape.artist || ""}/></label>
-                    <label>Year: <input type="text" name="year" onChange={props.change} value={props.tape.year || ""}/></label>
-                    <label>Genre: <input type="text" name="genre" onChange={props.change} value={props.tape.genre || ""}/></label>
-                    <label>Price: <input type="text" name="price" onChange={props.change} value={props.tape.price || ""}/></label>
+                    <label>Title: <input type="text" name="title" onChange={props.change} value={props.tape.title || ""} placeholder="Title"/></label>
+                    <label>Artist: <input type="text" name="artist" onChange={props.change} value={props.tape.artist || ""} placeholder="Artist"/></label>
+                    <label>Year: <input type="text" name="year" onChange={props.change} value={props.tape.year || ""} placeholder="Year"/></label>
+                    <label>Genre: <input type="text" name="genre" onChange={props.change} value={props.tape.genre || ""} placeholder="Genre"/></label>
+                    <label>Price: <input type="text" name="price" onChange={props.change} value={props.tape.price || ""} placeholder="Price"/></label>
                 </form>
                 <button onClick={props.reset} type="button">Clear</button>
                 <button onClick={props.save} type="button">Save</button>
@@ -141,19 +141,19 @@
         saveTape = () => {
             if (this.state.currentTape == {}) return;
             let newTape = this.state.currentTape;
-
+            let newList;
             fetch("/api/v1/add/", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(this.state.currentTape)
             })
                 .then(res => res.json())
-                .then((json) => { console.log(json)
+                .then((json) => { 
                 if (!newTape._id) {
                     newTape._id = json._id;
-                    let newList = this.state.tapes;
+                    newList = this.state.tapes;
                     newList.push(newTape);
-                    this.setState({tapes: newList})
+                    this.setState({tapes: newList, currentTape: {}})
                 }
                 });
         }
@@ -164,11 +164,9 @@
             fetch(`api/v1/delete/${id}`)
                 .then((res) => res.json())
                 .then(data => { 
-                    console.log(`deleted count: ${data.deleted.deletedCount}`);
                     const activeList = this.state.tapes.filter((tape) => {
                         return tape._id !== id;
                     });
-                    console.log(activeList)
                     this.setState({tapes: activeList, currentTape: {}});
                 }  
                 );
@@ -180,7 +178,7 @@
                 {header}
                 <ColoredLine color="#333745" />
                 {subHeader}
-                <Tapes tapes={this.state.tapes} clickHandler = {this.showDetail.bind(this)} />
+                <Tapes tapes={this.state.tapes} clickHandler={this.showDetail.bind(this)} />
                 <TapeDetail
                 tape={this.state.currentTape}
                 change={this.fieldChange}

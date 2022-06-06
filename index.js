@@ -81,15 +81,23 @@ app.post('/api/v1/add', (req, res) => {
   }else{
     if (!req.body._id) { // insert new tape
         let tape = new Tape({title:req.body.title,artist:req.body.artist,year:req.body.year,genre:req.body.genre,price:req.body.price});
-        tape.save((err, newTape) => {
-            if (err) return next(err);
-            console.log(newTape)
-            res.json({updated: 0, _id: newTape._id});
+        tape.save((err, result) => {
+            if (err || !result) {
+              res.status(500).json({"message":"Database error, tape not saved"});
+              return;
+            } else {
+            console.log("result?",result)
+            res.json({updated: 0, _id: result._id});
+            }
         });
     } else { // update tape
         Tape.updateOne({ _id: req.body._id}, {title:req.body.title,artist:req.body.artist,year:req.body.year,genre:req.body.genre,price:req.body.price}, (err, result) => {
-            if (err) return next(err);
+          if (err || !result) {
+            res.status(500).json({"message":"Database error, tape not edited"});
+            return;
+          } else {
             res.json({updated: result.nModified, _id: req.body._id});
+          }
         });
     }}
 });
