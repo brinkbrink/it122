@@ -63,34 +63,35 @@ app.get('/delete/:title', (req,res) => {
 });
 });
 
-app.get('/api/v1/delete/:id', (req,res, next) => {
-  Tape.deleteOne({"_id":req.params.id }, (err, result) => {
+app.get('/api/v1/delete/:id', (req,res) => {
+  Tape.deleteOne({"_id":req.params.id}, (err, result) => {
     if (err || !result) {
       res.status(500).json({"message":"Database error, title not found"});
   } else {
-      res.status(200).json({"message": "Successfully deleted", "Result": result});
+      res.status(200).json({"deleted": result});
    }
   });
 });
 
 app.post('/api/v1/add', (req, res) => {
-  let title = req.body.title;
-  let newTape = {artist: req.body.artist, title: req.body.title, year: req.body.year, genre: req.body.genre, price: req.body.price}
-  if (!req.body.title || !req.body.artist){
-    res.json({"message":"Tape not added or modified: title and artist are required fields"})
-  } else {
-  Tape.updateOne({_id: req.body._id,}, newTape, {upsert:true}, (err, result) => {
-    if (err || !result) {
-      res.status(200).json({"message":"Database error, tape not added"});
-    } else {
-        if(result.modifiedCount===0){
-          res.json({"message":`${title} tape added`,"result":result})
-        } else {
-          res.json({"message":`${title} tape modified`,"result":result});
-        }
-    }
-  });
-}
+  console.log(req.body)
+  if(req.body.title === ""){ // if no title, disallow add/edit
+    res.status(500).json({"message":"Title field required!"});
+    return;
+  }else{
+    if (!req.body._id) { // insert new tape
+        let tape = new Tape({title:req.body.title,artist:req.body.artist,year:req.body.year,genre:req.body.genre,price:req.body.price});
+        tape.save((err, newTape) => {
+            if (err) return next(err);
+            console.log(newTape)
+            res.json({updated: 0, _id: newTape._id});
+        });
+    } else { // update tape
+        Tape.updateOne({ _id: req.body._id}, {title:req.body.title,artist:req.body.artist,year:req.body.year,genre:req.body.genre,price:req.body.price}, (err, result) => {
+            if (err) return next(err);
+            res.json({updated: result.nModified, _id: req.body._id});
+        });
+    }}
 });
  
 app.use((req,res) => {
