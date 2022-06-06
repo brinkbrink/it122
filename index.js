@@ -63,13 +63,12 @@ app.get('/delete/:title', (req,res) => {
 });
 });
 
-app.get('/api/v1/delete/:title', (req,res, next) => {
-  let title = req.params.title;
-  Tape.deleteOne({"title":req.params.title }, (err, result) => {
+app.get('/api/v1/delete/:id', (req,res, next) => {
+  Tape.deleteOne({"_id":req.params.id }, (err, result) => {
     if (err || !result) {
       res.status(500).json({"message":"Database error, title not found"});
   } else {
-      res.status(200).json({"message": `${title} deleted`, "Result": result});
+      res.status(200).json({"message": "Successfully deleted", "Result": result});
    }
   });
 });

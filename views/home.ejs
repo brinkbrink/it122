@@ -83,7 +83,7 @@
     const subHeader = <h3>Tapes</h3>;
 
     const Tapes = (props) => {
-        let tapesList = props.data.map((tape) => <li key={tape._id} id={tape._id} onClick={props.clickHandler}>{tape.title}</li>);
+        let tapesList = props.data.map((tape) => <li id={tape._id} key={tape._id} onClick={props.clickHandler}>{tape.title}</li>);
         return <ul>{tapesList}</ul>;
     }
 
@@ -116,6 +116,7 @@
         }
 
         showDetail = (event) => {
+            console.log(event.target.id)
             let newTape = this.state.tapes.find((tape) => tape._id == event.target.id);
             this.setState({"currentTape":newTape})
         }
@@ -152,7 +153,11 @@
         }
 
         deleteTape = () => {
-            console.log(this.state.currentTape)
+            let id = this.state.currentTape._id;
+            if (this.state.currentTape == {}) return;
+            fetch(`api/v1/delete/${id}`)
+            .then(res => res.json())
+            .then((json) => { console.log(json.result.deletedCount)})
         }
 
         render() {
