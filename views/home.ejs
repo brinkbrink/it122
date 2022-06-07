@@ -142,6 +142,7 @@
             if (this.state.currentTape == {}) return;
             let newTape = this.state.currentTape;
             let newList;
+            console.log(this.state.currentTape)
             fetch("/api/v1/add/", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
