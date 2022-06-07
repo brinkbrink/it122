@@ -86,7 +86,6 @@ app.post('/api/v1/add', (req, res) => {
               res.status(500).json({"message":"Database error, tape not saved"});
               return;
             } else {
-            console.log("result?",result)
             res.json({updated: 0, _id: result._id});
             }
         });
