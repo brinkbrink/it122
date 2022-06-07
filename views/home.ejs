@@ -15,14 +15,28 @@
 
         main {
           background-color: #FFEEDB;
-          width: 90%;
+          width: 45%;
           margin: auto;
           padding: .5em 2em 2em 2em;
           border-radius: 15px;
         }
+
+        .detail {
+            width: 70%;
+            margin: auto;
+            background-color: #FE5F55;
+            border-radius: 15px;
+            padding: 1vh 0vh;
+        }
+
         h2, h3, h4 {
           font-family: Georgia, serif;
-          font-size: 2em;
+          font-size: 3em;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 2vh auto;
         }
 
         h3 {
@@ -31,6 +45,10 @@
 
         h4 {
             font-size: 1.2em;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            float: left;
+            color: #FE5F55;
         }
 
         .title {
@@ -50,9 +68,16 @@
             text-decoration-style: wavy;
         }
 
-        label {
+        input {
             display: block;
             padding: .5vh;
+            margin: .5vh auto;
+        }
+
+        .buttons {
+            display: block;
+            margin: auto auto .5vh auto;
+            width: 61%;
         }
 
         button {
@@ -60,7 +85,27 @@
             color: #FFF;
             border-radius: 10%;
             padding: .2vh 1vw;
-            margin: 2vh .2vw 0;
+            margin: 1vh .2vw 0;
+        }
+
+        li {
+            list-style: none;
+            font-size: 1.3em;
+            border-radius: 5%;
+            background-color: #FE5F55;
+            margin: 0.5vw 0.5vw;
+            display: inline-block;
+            padding: 0.5vw;
+        }
+
+        li:hover {
+            background-color: #7F96FF;
+        }
+
+        @media (max-width: 800px) {
+            main {
+                width: 80%;
+            }
         }
     </style>
     <!-- Don't use this in production: -->
@@ -79,8 +124,7 @@
             }}
         />
     );
-    const header = <h2>Home</h2>;
-    const subHeader = <h3>Tapes</h3>;
+    const header = <h2>Tapes on Deck</h2>;
 
     const Tapes = (props) => {
         let tapesList = props.tapes.map((tape) => <li id={tape._id} key={tape._id} onClick={props.clickHandler}>{tape.title}</li>);
@@ -89,20 +133,23 @@
 
     const TapeDetail = (props) => {
         return (
-            <div>
-                <hr/>
-                <h4>Details:</h4>
+        <div>
+            <h4>Details...</h4>
+            <div class="detail">
                 <form id="edit-tape-detail">
-                    <label>Title: <input type="text" name="title" onChange={props.change} value={props.tape.title || ""} placeholder="Title"/></label>
-                    <label>Artist: <input type="text" name="artist" onChange={props.change} value={props.tape.artist || ""} placeholder="Artist"/></label>
-                    <label>Year: <input type="text" name="year" onChange={props.change} value={props.tape.year || ""} placeholder="Year"/></label>
-                    <label>Genre: <input type="text" name="genre" onChange={props.change} value={props.tape.genre || ""} placeholder="Genre"/></label>
-                    <label>Price: <input type="text" name="price" onChange={props.change} value={props.tape.price || ""} placeholder="Price"/></label>
+                    <input type="text" name="title" onChange={props.change} value={props.tape.title || ""} placeholder="Title"/>
+                    <input type="text" name="artist" onChange={props.change} value={props.tape.artist || ""} placeholder="Artist"/>
+                    <input type="text" name="year" onChange={props.change} value={props.tape.year || ""} placeholder="Year"/>
+                    <input type="text" name="genre" onChange={props.change} value={props.tape.genre || ""} placeholder="Genre"/>
+                    <input type="text" name="price" onChange={props.change} value={props.tape.price || ""} placeholder="Price"/>
                 </form>
+                <div class="buttons">
                 <button onClick={props.reset} type="button">Clear</button>
                 <button onClick={props.save} type="button">Save</button>
                 <button onClick={props.delete} type="button">Delete</button>
+                </div>
             </div>
+        </div>
         )
     }
     
@@ -177,9 +224,8 @@
             return (
             <main>
                 {header}
-                <ColoredLine color="#333745" />
-                {subHeader}
                 <Tapes tapes={this.state.tapes} clickHandler={this.showDetail.bind(this)} />
+                <ColoredLine color="#333745" />
                 <TapeDetail
                 tape={this.state.currentTape}
                 change={this.fieldChange}
