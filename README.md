@@ -1,2 +1,3 @@
-# it122
-SCC IT 122
+#Tapes on Deck
+
+A simple web application to keep track of your tape collection (or inventory).
